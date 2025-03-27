@@ -1,7 +1,6 @@
 {
   "name": "serverless-api",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "deploy:dev": "npx serverless deploy -s dev",
     "deploy:prod": "npx serverless deploy -s prod",
@@ -9,18 +8,18 @@
     "remove:prod": "npx serverless remove -s prod",
     "lint": "eslint --ignore-path .gitignore ."
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
+    "@aws-sdk/client-sns": "^3.306.0",
     "axios": "^0.27.2",
+    "deploy": "^1.0.3",
     "dotenv": "^16.4.7",
-    "mongodb": "^6.8.0"
+    "mongodb": "^6.8.0",
+    "npx": "^10.2.2"
   },
   "devDependencies": {
     "@serverless/eslint-config": "^5.0.1",
     "eslint": "^8.23.1",
     "eslint-plugin-import": "^2.26.0",
-    "serverless": "^3.22.0"
+    "serverless": "^3.40.0"
   }
 }
