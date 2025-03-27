@@ -1,0 +1,34 @@
+service: slackbot
+useDotenv: true
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  environment:
+   MONGODB_URI: ${env:MONGODB_URI}
+   SLACK_URL: ${env:SLACK_URL}
+  iam: 
+    role:
+      statements:
+      - Effect: Allow
+        Action: 'sns:*'
+        Resource: 'arn:aws:sns:us-east-1:535002870115:ALERT_NOTIFICATIONS'
+
+functions:
+  read-from-topic:
+    handler: src/readFromTopic.handler
+    events:
+      - sns:
+          arn: arn:aws:sns:us-east-1:535002870115:ALERT_NOTIFICATIONS
+  post-message:
+    handler: src/postToTopic.handler
+    events:
+      - httpApi:
+          path: /posttotopic
+          method: post
+  slackbot:
+    handler: src/postToSlack.handler
+    events:
+      - sns:
+          arn: arn:aws:sns:us-east-1:535002870115:ALERT_NOTIFICATIONS
